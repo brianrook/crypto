@@ -1,5 +1,6 @@
 package com.brianrook.crypto.service;
 
+import com.brianrook.crypto.exception.InvalidKeyStreamValueException;
 import com.brianrook.crypto.model.Deck;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -97,5 +98,19 @@ public class DeckManipulationServiceTest {
 
         String expected = "23 26 jokerB 9 12 15 18 21 24 2 jokerA 1 4 7 10 13 16 19 22 25 3 5 8 11 14 17 20 6";
         assertEquals(expected, DeckManipulationService.writeDeck(returnDeck));
+    }
+
+    @Test
+    public void testGetKeystreamValue() throws InvalidKeyStreamValueException {
+        //given
+        Deck myDeck = new Deck();
+        //example from wiki
+        ArrayList<String> cards = Lists.newArrayList("23","26",Deck.JOKER_B,"9","12","15","18","21","24","2",Deck.JOKER_A,"1","4","7","10","13","16","19","22","25","3","5","8","11","14","17","20","6");
+        myDeck.setCards(cards);
+
+        //when
+        String keyStreamValue = DeckManipulationService.getStreamValue(myDeck);
+
+        assertEquals("11", keyStreamValue);
     }
 }

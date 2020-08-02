@@ -1,5 +1,6 @@
 package com.brianrook.crypto.service;
 
+import com.brianrook.crypto.exception.InvalidKeyStreamValueException;
 import com.brianrook.crypto.model.Deck;
 import lombok.extern.slf4j.Slf4j;
 
@@ -92,5 +93,23 @@ public class DeckManipulationService {
 
         deckIn.setCards(recombine);
         return deckIn;
+    }
+
+    public static String getStreamValue(Deck deckIn) throws InvalidKeyStreamValueException {
+         String topCard = deckIn.getCards().get(0);
+
+         int topCardValue = 0;
+         if (topCard==Deck.JOKER_A || topCard==Deck.JOKER_B){
+             topCardValue = deckIn.getNonJokerCards()+1;
+         }else{
+             topCardValue = Integer.valueOf(topCard);
+         }
+
+         String keyStreamValue = deckIn.getCards().get(topCardValue);
+         if (keyStreamValue==Deck.JOKER_A || topCard==Deck.JOKER_B){
+             throw new InvalidKeyStreamValueException("outcome was a joker");
+         }
+
+         return keyStreamValue;
     }
 }
