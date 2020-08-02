@@ -71,4 +71,26 @@ public class DeckManipulationService {
          deckIn.setCards(recombine);
          return deckIn;
      }
+
+    public static Deck countCut(Deck deckIn){
+         String lastCard = deckIn.getCards().get(deckIn.getDeckSize());
+         int cutSize = 0;
+         //if joker in last position
+        if (lastCard==Deck.JOKER_A || lastCard==Deck.JOKER_B){
+            cutSize = deckIn.getNonJokerCards()+1;
+        }else{
+            cutSize = Integer.valueOf(lastCard);
+        }
+
+        List<String> cutCards = deckIn.getCards().subList(0,cutSize);
+        List<String> remainingCards = deckIn.getCards().subList(cutSize, deckIn.getDeckSize());
+
+        ArrayList<String> recombine = new ArrayList<>();
+        recombine.addAll(remainingCards);
+        recombine.addAll(cutCards);
+        recombine.add(lastCard);
+
+        deckIn.setCards(recombine);
+        return deckIn;
+    }
 }

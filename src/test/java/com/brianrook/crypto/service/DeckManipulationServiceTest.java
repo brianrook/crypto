@@ -83,4 +83,19 @@ public class DeckManipulationServiceTest {
         assertEquals("5", returnDeck.getCards().get(0));
         assertEquals("6", returnDeck.getCards().get(returnDeck.getDeckSize()));
     }
+
+    @Test
+    public void testCountCut(){
+        //given
+        Deck myDeck = new Deck();
+        //example from wiki
+        ArrayList<String> cards = Lists.newArrayList("5","8","11","14","17","20","23","26",Deck.JOKER_B,"9","12","15","18","21","24","2",Deck.JOKER_A,"1","4","7","10","13","16","19","22","25","3","6");
+        myDeck.setCards(cards);
+
+        //when
+        Deck returnDeck = DeckManipulationService.countCut(myDeck);
+
+        String expected = "23 26 jokerB 9 12 15 18 21 24 2 jokerA 1 4 7 10 13 16 19 22 25 3 5 8 11 14 17 20 6";
+        assertEquals(expected, DeckManipulationService.writeDeck(returnDeck));
+    }
 }
