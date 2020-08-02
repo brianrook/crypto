@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DeckManipulationServiceTest {
 
@@ -15,7 +16,7 @@ public class DeckManipulationServiceTest {
     public void testWriteDeck(){
         Deck myDeck = new Deck();
 
-        assertEquals("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 jokerA jokerB",
+        assertEquals("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 jokerA jokerB",
                 DeckManipulationService.writeDeck(myDeck));
     }
 
@@ -65,7 +66,7 @@ public class DeckManipulationServiceTest {
         assertEquals(Deck.JOKER_A, returnDeck.getCards().get(0));
         assertEquals(Deck.JOKER_B, returnDeck.getCards().get(1));
         assertEquals("1", returnDeck.getCards().get(2));
-        assertEquals("52", returnDeck.getCards().get(myDeck.getDeckSize()));
+        assertEquals("26", returnDeck.getCards().get(myDeck.getDeckSize()));
     }
     @Test
     public void testTripleCut1(){
@@ -79,8 +80,8 @@ public class DeckManipulationServiceTest {
         //when
         Deck returnDeck = DeckManipulationService.tripleCut(myDeck);
 
-        assertEquals(Deck.JOKER_B, returnDeck.getCards().get(7));
-        assertEquals(Deck.JOKER_A, returnDeck.getCards().get(15));
+        assertEquals(Deck.JOKER_B, returnDeck.getCards().get(8));
+        assertEquals(Deck.JOKER_A, returnDeck.getCards().get(16));
         assertEquals("5", returnDeck.getCards().get(0));
         assertEquals("6", returnDeck.getCards().get(returnDeck.getDeckSize()));
     }
@@ -109,8 +110,58 @@ public class DeckManipulationServiceTest {
         myDeck.setCards(cards);
 
         //when
-        String keyStreamValue = DeckManipulationService.getStreamValue(myDeck);
+        int keyStreamValue = DeckManipulationService.getStreamValue(myDeck);
 
-        assertEquals("11", keyStreamValue);
+        assertEquals(11, keyStreamValue);
+    }
+
+    @Test
+    public void testConvertAlphaToNumber(){
+        assertEquals(1, DeckManipulationService.convertAlphaToNumber('A'));
+        assertEquals(8, DeckManipulationService.convertAlphaToNumber('H'));
+        assertEquals(26, DeckManipulationService.convertAlphaToNumber('Z'));
+    }
+
+    @Test
+    public void testConvertNumberToAlpha(){
+        assertEquals('A', DeckManipulationService.convertNumberToAlpha(1));
+        assertEquals('H', DeckManipulationService.convertNumberToAlpha(8));
+        assertEquals('Z', DeckManipulationService.convertNumberToAlpha(26));
+
+    }
+
+    @Test
+    public void testEncodeCharacter(){
+        Deck myDeck = new Deck();
+        Character myChar = DeckManipulationService.encodeCharacter('H', myDeck);
+        assertNotNull(myChar);
+        assertEquals('L', myChar);
+    }
+
+    @Test
+    public void testEncodeMessage(){
+        Deck myDeck = new Deck();
+        String encodedMsg1 = DeckManipulationService.encode("Hello World");
+        assertNotNull(encodedMsg1);
+
+        myDeck = new Deck();
+        String encodedMsg2 = DeckManipulationService.encode("HELLOWORLD");
+        assertNotNull(encodedMsg2);
+
+        assertEquals(encodedMsg1, encodedMsg2);
+    }
+
+    @Test
+    public void testDecodeCharacter(){
+        Deck myDeck = new Deck();
+        Character myChar = DeckManipulationService.decodeCharacter('L', myDeck);
+        assertNotNull(myChar);
+        assertEquals('H', myChar);
+    }
+    @Test
+    public void testDecodeMessage(){
+        Deck myDeck = new Deck();
+        String decodedMessage = DeckManipulationService.decode("L\\VdWp`XRU");
+        assertEquals("HELLOWORLD", decodedMessage);
     }
 }

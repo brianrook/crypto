@@ -10,7 +10,7 @@ public class Deck {
     public final static String JOKER_A = "jokerA";
     public final static String JOKER_B = "jokerB";
 
-    public final static int DEFAULT_NUMBER_OF_CARDS=52;
+    public final static int DEFAULT_NUMBER_OF_CARDS=26;
 
 
     private ArrayList<String> cards;
