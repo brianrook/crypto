@@ -37,4 +37,16 @@ public class DeckManipulationServiceTest {
         //joker should be in second position
         assertEquals(Deck.JOKER_A, returnDeck.getCards().get(1));
     }
+
+    @Test
+    public void testSecondManipulation(){
+        //given
+        Deck myDeck = new Deck();
+
+        //when
+        Deck returnDeck = DeckManipulationService.secondManipulation(myDeck);
+
+        //joker should be in third position
+        assertEquals(Deck.JOKER_B, returnDeck.getCards().get(2));
+    }
 }

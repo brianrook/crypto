@@ -13,17 +13,25 @@ public class DeckManipulationService {
      }
 
      public static Deck firstManipulation(Deck deckIn){
-         int jokerPosition = deckIn.getCards().lastIndexOf(Deck.JOKER_A);
+         return moveJoker(deckIn, Deck.JOKER_A);
+     }
+    public static Deck secondManipulation(Deck deckIn){
+        Deck firstMove = moveJoker(deckIn, Deck.JOKER_B);
+        return moveJoker(firstMove, Deck.JOKER_B);
+    }
+
+     public static Deck moveJoker(Deck deckIn, String joker){
+         int jokerPosition = deckIn.getCards().lastIndexOf(joker);
 
          //if the joker is not at the end of the deck, move down one
          if (jokerPosition!=Deck.DECK_SIZE-1){
              deckIn.getCards().remove(jokerPosition);
-             deckIn.getCards().add(jokerPosition+1, Deck.JOKER_A);
+             deckIn.getCards().add(jokerPosition+1, joker);
          }
          //joker in last position, move between front 2 cards
          else{
              deckIn.getCards().remove(jokerPosition);
-             deckIn.getCards().add(1, Deck.JOKER_A);
+             deckIn.getCards().add(1, joker);
          }
          return deckIn;
      }
