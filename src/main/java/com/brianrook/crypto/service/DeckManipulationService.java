@@ -107,9 +107,24 @@ public class DeckManipulationService {
 
          String keyStreamValue = deckIn.getCards().get(topCardValue);
          if (keyStreamValue==Deck.JOKER_A || topCard==Deck.JOKER_B){
-             throw new InvalidKeyStreamValueException("outcome was a joker");
+             throw new InvalidKeyStreamValueException("outcome was a joker", deckIn);
          }
 
          return keyStreamValue;
+    }
+
+    public static String executeKeyStream(Deck deckIn){
+         try{
+             Deck firstManipulation = DeckManipulationService.firstManipulation(deckIn);
+             Deck secondManipulation = DeckManipulationService.secondManipulation(firstManipulation);
+             Deck tripleCut = DeckManipulationService.tripleCut(secondManipulation);
+             Deck countCut = DeckManipulationService.countCut(tripleCut);
+             String keyStreamValue = DeckManipulationService.getStreamValue(countCut);
+
+             return keyStreamValue;
+         }catch (InvalidKeyStreamValueException e){
+             //execute the keystream algorithm again
+             return executeKeyStream(e.getCurrentDeck());
+         }
     }
 }

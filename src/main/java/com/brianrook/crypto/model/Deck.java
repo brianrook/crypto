@@ -38,4 +38,7 @@ public class Deck {
     public int getNonJokerCards(){
         return cards.size()-2;
     }
+
+
+
 }
