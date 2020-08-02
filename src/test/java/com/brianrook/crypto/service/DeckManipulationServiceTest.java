@@ -1,7 +1,10 @@
 package com.brianrook.crypto.service;
 
 import com.brianrook.crypto.model.Deck;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,7 +25,7 @@ public class DeckManipulationServiceTest {
         Deck returnDeck = DeckManipulationService.firstManipulation(myDeck);
 
         //joker should be in last position
-        assertEquals(Deck.JOKER_A, returnDeck.getCards().get(Deck.DECK_SIZE-1));
+        assertEquals(Deck.JOKER_A, returnDeck.getCards().get(myDeck.getDeckSize()));
     }
 
     @Test
@@ -48,5 +51,36 @@ public class DeckManipulationServiceTest {
 
         //joker should be in third position
         assertEquals(Deck.JOKER_B, returnDeck.getCards().get(2));
+    }
+
+    @Test
+    public void testTripleCut(){
+        //given
+        Deck myDeck = new Deck();
+
+        //when
+        Deck returnDeck = DeckManipulationService.tripleCut(myDeck);
+
+        assertEquals(Deck.JOKER_A, returnDeck.getCards().get(0));
+        assertEquals(Deck.JOKER_B, returnDeck.getCards().get(1));
+        assertEquals("1", returnDeck.getCards().get(2));
+        assertEquals("52", returnDeck.getCards().get(myDeck.getDeckSize()));
+    }
+    @Test
+    public void testTripleCut1(){
+        //given
+        Deck myDeck = new Deck();
+        //example from wiki
+        ArrayList<String> cards = Lists.newArrayList("1", "4", "7","10","13","16","19","22","25",
+                "3","6",Deck.JOKER_B,"9","12","15","18","21","24","2",Deck.JOKER_A,"5","8","11","14","17","20","23","26");
+        myDeck.setCards(cards);
+
+        //when
+        Deck returnDeck = DeckManipulationService.tripleCut(myDeck);
+
+        assertEquals(Deck.JOKER_B, returnDeck.getCards().get(7));
+        assertEquals(Deck.JOKER_A, returnDeck.getCards().get(15));
+        assertEquals("5", returnDeck.getCards().get(0));
+        assertEquals("6", returnDeck.getCards().get(returnDeck.getDeckSize()));
     }
 }

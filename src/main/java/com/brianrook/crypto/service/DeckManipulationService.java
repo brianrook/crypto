@@ -3,7 +3,15 @@ package com.brianrook.crypto.service;
 import com.brianrook.crypto.model.Deck;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
+
+/*
+Solitaire algorithm from
+https://en.wikipedia.org/wiki/Solitaire_(cipher)
+ */
 public class DeckManipulationService {
 
      public static String writeDeck(Deck deckIn){
@@ -24,7 +32,7 @@ public class DeckManipulationService {
          int jokerPosition = deckIn.getCards().lastIndexOf(joker);
 
          //if the joker is not at the end of the deck, move down one
-         if (jokerPosition!=Deck.DECK_SIZE-1){
+         if (jokerPosition!=deckIn.getDeckSize()){
              deckIn.getCards().remove(jokerPosition);
              deckIn.getCards().add(jokerPosition+1, joker);
          }
@@ -33,6 +41,34 @@ public class DeckManipulationService {
              deckIn.getCards().remove(jokerPosition);
              deckIn.getCards().add(1, joker);
          }
+         return deckIn;
+     }
+
+     public static Deck tripleCut(Deck deckIn){
+
+         //joker a and b are not always in order, get first and second joker positions
+         int jokerAPosition = deckIn.getCards().indexOf(Deck.JOKER_A);
+         int jokerBPosition = deckIn.getCards().indexOf(Deck.JOKER_B);
+
+         int firstJoker = jokerAPosition<jokerBPosition ? jokerAPosition : jokerBPosition;
+         int secondJoker = jokerAPosition>jokerBPosition?jokerAPosition : jokerBPosition;
+
+
+         List<String> firstCut = deckIn.getCards().subList(0, firstJoker);
+         List<String> secondCut = deckIn.getCards().subList(firstJoker, secondJoker+1);
+         List<String> thirdCut = new ArrayList<>();
+         if (secondJoker+1 < deckIn.getDeckSize())
+         {
+             thirdCut= deckIn.getCards().subList(secondJoker+1, deckIn.getDeckSize());
+         }
+
+
+         ArrayList<String> recombine = new ArrayList<>();
+         recombine.addAll(thirdCut);
+         recombine.addAll(secondCut);
+         recombine.addAll(firstCut);
+
+         deckIn.setCards(recombine);
          return deckIn;
      }
 }

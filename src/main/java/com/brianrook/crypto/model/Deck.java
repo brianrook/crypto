@@ -11,7 +11,6 @@ public class Deck {
     public final static String JOKER_B = "jokerB";
 
     public final static int NUMBER_OF_CARDS=52;
-    public final static int DECK_SIZE = NUMBER_OF_CARDS+2;
 
     private ArrayList<String> cards;
 
@@ -22,5 +21,9 @@ public class Deck {
         }
         cards.add(JOKER_A);
         cards.add(JOKER_B);
+    }
+
+    public int getDeckSize(){
+        return cards.size()-1;
     }
 }
