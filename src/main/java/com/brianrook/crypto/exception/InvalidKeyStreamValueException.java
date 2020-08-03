@@ -1,6 +1,6 @@
 package com.brianrook.crypto.exception;
 
-import com.brianrook.crypto.model.Deck;
+import com.brianrook.crypto.service.model.Deck;
 
 public class InvalidKeyStreamValueException extends Throwable {
     Deck currentDeck;

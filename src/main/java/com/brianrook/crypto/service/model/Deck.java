@@ -1,4 +1,4 @@
-package com.brianrook.crypto.model;
+package com.brianrook.crypto.service.model;
 
 import lombok.Data;
 

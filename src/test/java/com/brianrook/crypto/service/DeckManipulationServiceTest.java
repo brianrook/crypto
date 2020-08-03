@@ -1,7 +1,7 @@
 package com.brianrook.crypto.service;
 
 import com.brianrook.crypto.exception.InvalidKeyStreamValueException;
-import com.brianrook.crypto.model.Deck;
+import com.brianrook.crypto.service.model.Deck;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
@@ -117,23 +117,23 @@ public class DeckManipulationServiceTest {
 
     @Test
     public void testConvertAlphaToNumber(){
-        assertEquals(1, DeckManipulationService.convertAlphaToNumber('A'));
-        assertEquals(8, DeckManipulationService.convertAlphaToNumber('H'));
-        assertEquals(26, DeckManipulationService.convertAlphaToNumber('Z'));
+        assertEquals(1, CryptoService.convertAlphaToNumber('A'));
+        assertEquals(8, CryptoService.convertAlphaToNumber('H'));
+        assertEquals(26, CryptoService.convertAlphaToNumber('Z'));
     }
 
     @Test
     public void testConvertNumberToAlpha(){
-        assertEquals('A', DeckManipulationService.convertNumberToAlpha(1));
-        assertEquals('H', DeckManipulationService.convertNumberToAlpha(8));
-        assertEquals('Z', DeckManipulationService.convertNumberToAlpha(26));
+        assertEquals('A', CryptoService.convertNumberToAlpha(1));
+        assertEquals('H', CryptoService.convertNumberToAlpha(8));
+        assertEquals('Z', CryptoService.convertNumberToAlpha(26));
 
     }
 
     @Test
     public void testEncodeCharacter(){
         Deck myDeck = new Deck();
-        Character myChar = DeckManipulationService.encodeCharacter('H', myDeck);
+        Character myChar = CryptoService.encodeCharacter('H', myDeck);
         assertNotNull(myChar);
         assertEquals('L', myChar);
     }
@@ -141,11 +141,11 @@ public class DeckManipulationServiceTest {
     @Test
     public void testEncodeMessage(){
         Deck myDeck = new Deck();
-        String encodedMsg1 = DeckManipulationService.encode("Hello World");
+        String encodedMsg1 = CryptoService.encode("Hello World");
         assertNotNull(encodedMsg1);
 
         myDeck = new Deck();
-        String encodedMsg2 = DeckManipulationService.encode("HELLOWORLD");
+        String encodedMsg2 = CryptoService.encode("HELLOWORLD");
         assertNotNull(encodedMsg2);
 
         assertEquals(encodedMsg1, encodedMsg2);
@@ -154,14 +154,14 @@ public class DeckManipulationServiceTest {
     @Test
     public void testDecodeCharacter(){
         Deck myDeck = new Deck();
-        Character myChar = DeckManipulationService.decodeCharacter('L', myDeck);
+        Character myChar = CryptoService.decodeCharacter('L', myDeck);
         assertNotNull(myChar);
         assertEquals('H', myChar);
     }
     @Test
     public void testDecodeMessage(){
         Deck myDeck = new Deck();
-        String decodedMessage = DeckManipulationService.decode("L\\VdWp`XRU");
+        String decodedMessage = CryptoService.decode("L\\VdWp`XRU");
         assertEquals("HELLOWORLD", decodedMessage);
     }
 }

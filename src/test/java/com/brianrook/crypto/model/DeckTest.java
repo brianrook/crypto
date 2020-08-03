@@ -1,5 +1,6 @@
 package com.brianrook.crypto.model;
 
+import com.brianrook.crypto.service.model.Deck;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
