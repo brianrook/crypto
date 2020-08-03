@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "49e5cbc6-e3e4-4081-bc14-9c7fc09564e5",
+		"name": "CryptoTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Encode Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"message\":\"Hello World!\",\n\t\"deckSeed\":[\n\t\t\t1,\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5,\n\t\t\t6,\n\t\t\t7,\n\t\t\t8,\n\t\t\t9,\n\t\t\t10,\n\t\t\t11,\n\t\t\t12,\n\t\t\t13,\n\t\t\t14,\n\t\t\t15,\n\t\t\t16,\n\t\t\t17,\n\t\t\t18,\n\t\t\t19,\n\t\t\t20,\n\t\t\t21,\n\t\t\t22,\n\t\t\t23,\n\t\t\t24,\n\t\t\t25,\n\t\t\t26,\n\t\t\t\"jokerA\",\n\t\t\t\"jokerB\"\n\t\t]\n}\n"
+				},
+				"url": {
+					"raw": "localhost:8080/encode",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"encode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Decode Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"message\":\"L\\\\VdWp`XRU\",\n\t\"deckSeed\":[\n\t\t\t1,\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5,\n\t\t\t6,\n\t\t\t7,\n\t\t\t8,\n\t\t\t9,\n\t\t\t10,\n\t\t\t11,\n\t\t\t12,\n\t\t\t13,\n\t\t\t14,\n\t\t\t15,\n\t\t\t16,\n\t\t\t17,\n\t\t\t18,\n\t\t\t19,\n\t\t\t20,\n\t\t\t21,\n\t\t\t22,\n\t\t\t23,\n\t\t\t24,\n\t\t\t25,\n\t\t\t26,\n\t\t\t\"jokerA\",\n\t\t\t\"jokerB\"\n\t\t]\n}\n"
+				},
+				"url": {
+					"raw": "localhost:8080/decode",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"decode"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
