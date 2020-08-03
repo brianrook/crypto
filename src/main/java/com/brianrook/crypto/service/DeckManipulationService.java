@@ -142,23 +142,9 @@ public class DeckManipulationService {
     }
 
     public static String encode(String messageToEncode){
-         String cleanedMessage = messageToEncode.toUpperCase().replaceAll("[^A-Z]","");
-         log.debug("message to encode: {}", cleanedMessage);
-
-         List<Integer> valueList = cleanedMessage.chars().mapToObj(i -> (char)i)
-                 .map(c -> convertAlphaToNumber(c))
-                 .collect(Collectors.toList());
-
          Deck myDeck = new Deck();
 
-         List<Character> encodedChars = valueList.stream()
-                 .map(i -> convertNumberToAlpha(i))
-                 .map(c -> encodeCharacter(c, myDeck))
-                 .collect(Collectors.toList());
-
-         String encodedMessage = encodedChars.stream().map(String::valueOf).collect(Collectors.joining());
-         log.info("encoded message : {}", encodedMessage);
-         return encodedMessage;
+         return encode(messageToEncode, myDeck);
     }
 
     public static char encodeCharacter(char characterToEncode, Deck myDeck){
@@ -212,4 +198,44 @@ public class DeckManipulationService {
         return decodedMessage;
     }
 
+    public static String encode(String messageToEncode, List<String> deckSeed) {
+         Deck myDeck = new Deck(deckSeed);
+         return encode(messageToEncode, myDeck);
+    }
+    public static String encode(String messageToEncode, Deck myDeck){
+        String cleanedMessage = messageToEncode.toUpperCase().replaceAll("[^A-Z]","");
+        log.debug("message to encode: {}", cleanedMessage);
+
+        List<Integer> valueList = cleanedMessage.chars().mapToObj(i -> (char)i)
+                .map(c -> convertAlphaToNumber(c))
+                .collect(Collectors.toList());
+
+        List<Character> encodedChars = valueList.stream()
+                .map(i -> convertNumberToAlpha(i))
+                .map(c -> encodeCharacter(c, myDeck))
+                .collect(Collectors.toList());
+
+        String encodedMessage = encodedChars.stream().map(String::valueOf).collect(Collectors.joining());
+        log.info("encoded message : {}", encodedMessage);
+        return encodedMessage;
+    }
+
+    public static String decode(String message, List<String> deckSeed) {
+         Deck myDeck = new Deck(deckSeed);
+         return decode(message, myDeck);
+    }
+    public static String decode(String messageToDecode, Deck myDeck){
+        List<Integer> valueList = messageToDecode.chars().mapToObj(i -> (char)i)
+                .map(c -> convertAlphaToNumber(c))
+                .collect(Collectors.toList());
+
+        List<Character> encodedChars = valueList.stream()
+                .map(i -> convertNumberToAlpha(i))
+                .map(c -> decodeCharacter(c, myDeck))
+                .collect(Collectors.toList());
+
+        String decodedMessage = encodedChars.stream().map(String::valueOf).collect(Collectors.joining());
+        log.info("encoded message : {}", decodedMessage);
+        return decodedMessage;
+    }
 }

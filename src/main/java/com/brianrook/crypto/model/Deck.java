@@ -3,6 +3,7 @@ package com.brianrook.crypto.model;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Deck {
@@ -13,7 +14,7 @@ public class Deck {
     public final static int DEFAULT_NUMBER_OF_CARDS=26;
 
 
-    private ArrayList<String> cards;
+    private List<String> cards;
 
     public Deck(){
         cards = new ArrayList();
@@ -30,6 +31,10 @@ public class Deck {
         }
         cards.add(JOKER_A);
         cards.add(JOKER_B);
+    }
+
+    public Deck(List<String> deckSeed) {
+        this.cards = deckSeed;
     }
 
     public int getDeckSize(){
